@@ -84,6 +84,10 @@ def saveUserAnswer(request):
             quiztaker.save()
 
             return redirect("result",quiztaker.quiz)
+
+        else:
+            return HttpResponse("please select the anser")
+
     else:
         return HttpResponse("Plese select Options")
 
