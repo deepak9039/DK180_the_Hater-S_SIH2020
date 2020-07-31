@@ -86,7 +86,7 @@ def saveUserAnswer(request):
             return redirect("result",quiztaker.quiz)
 
         else:
-            return HttpResponse("please select the anser")
+            return HttpResponse("please select atleast one answer")
 
     else:
         return HttpResponse("Plese select Options")
