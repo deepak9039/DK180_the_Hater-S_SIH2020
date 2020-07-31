@@ -1,0 +1,127 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block style %} 
+<link rel="stylesheet" href="{% static 'css/feed.css' %}">
+{% endblock style %}
+{% block content %}
+
+
+<section>
+    <!-- <h2>home page</h2> -->
+    <div class="row jumbotron m-0" style="background-color: rgb(236, 236, 236);">
+        <div class="card col-md-2 mx-3 mt-3" style="max-height: 30rem;">
+            <div class="card-header">Content</div>
+            <div class="card-body" id="navbar-example3">
+                <nav class="nav-pills text-dark flex-column">
+                {% for job in jobs %}
+                    <a class="nav-link text-dark" href="{% url 'job' job.id %}" >{{ job.company }}</a>
+                {% endfor %}
+                </nav>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+        
+        <div class="col overflow-auto" style="max-height: 40rem;" data-spy="scroll" data-target="#navbar-example3" data-offset="0">
+            <!-- style="background-color: rgb(236, 236, 236);"> --> 
+            {% if jobs %}
+                {% for job in jobs.all %}
+                <div class="card container shadow mt-4 p-4" >
+                  <div class="d-flex align-item-center">
+                    <h3 class="card-title">{{ job.job_title }}</h3>
+                      <img src= "{{job.job_image.url}}" width="100" height="100" class="centerCardImage ml-auto">
+                      <!-- <div class="ml-auto">...</div> -->
+                  </div>
+                  <div class="">
+                    <h5 class="m-0 "><a class="text-dark" href="#">Company Name : {{ job.company }}</a> </h5>
+                    <!-- <small class="text-muted">job.createation_date </small>
+                    <p class="text-muted m-0">330 People Applied</p> -->
+                </div>
+                <p class="mt-4 card-text" style="text-align: left;">Location : {{ job.job_location_place }} </p>
+                <div class="form-group">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm mt-2">
+                        <label class="d-inline" for="exampleInputEmail1">joindate</label>
+                        <small id="emailHelp" class="form-text ">{{ job.join_date }}</small>
+                      </div>
+                      <div class="col-sm mt-2">
+                        <label for="exampleInputEmail1" class="d-inline">Duration</label>
+                        <small id="emailHelp" class="form-text ">{{ job.duration }}</small>
+                      </div>
+                      <div class="col-sm mt-2">
+                        <label for="exampleInputEmail1" class="d-inline">Salary</label>
+                        <small id="emailHelp" class="form-text ">{{ job.salary }}</small>
+                      </div>
+                      <div class="col-sm mt-2">
+                        <label for="exampleInputEmail1" class="d-inline">Post Date</label>
+                        <small id="emailHelp" class="form-text ">{{ job.post_date }}</small>
+                      </div>
+                      <div class="col-sm mt-2">
+                        <label for="exampleInputEmail1" class="d-inline">Last Date Apply By</label>
+                        <small id="emailHelp" class="form-text ">{{ job.last_date_apply_by }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div class="mt-0">
+                      <p style="text-align: left;"> {{ job.location }} </p>
+                      <a href="{% url 'job' job.id %}" class="btn btn-primary">view details</a>
+                  </div>
+              </div>
+              {% endfor %}
+                {% else %}
+                  <h5 class="container pb-5 text danger mt-4">No Job Available This City  </h5>
+              {% endif %}
+          </div>
+        
+
+        <div class="card col-md-2 mx-3 mt-3" style="max-height: 25rem;">
+          <span class="" id="leftCardImageBox" ></span>
+            <img class="card-img-top border w-100 h-30 mt-1"  src="{% static 'images/avi-richards-Z3ownETsdNQ-unsplash.jpg' %}" id='leftCardImage' alt="none">
+            <form action="/subscribe/?redirect={{request.path}}&" method="GET">
+              <div class="card-body mt-3">
+                <h5 class="card-title">Don't miss any job</h5>
+                <input class="form-control form-control-lg" type="email" placeholder="Email" required name="subscriber_email">
+                <input type="hidden" value="{{request.path}}" >
+                <button type="submit" class="btn btn-primary btn-lg active mt-3 float-right" data-toggle="button" aria-pressed="false">
+                  Subscribe
+                </button>
+                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+              </div>
+            </form>
+          <div class="card-footer mt-5 " ></div>
+      </div>
+        
+  </div>
+
+
+</section>
+
+{% block pagination %}
+    
+    {% if is_paginated %}
+    <nav aria-label="Page navigation example">
+        
+        <ul class="pagination justify-content-center mt-5 mr-3">
+            <li class="page-item">
+                {% if page_obj.has_previous %}  
+                <a class="page-link " href="{{ request.path }}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                {% endif %}
+            </li>
+            <li class="page-item active"><a class="page-link"href="">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </a></li>
+            
+            <li class="page-item ">
+                {% if page_obj.has_next %}
+                <a class="page-link " href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a> 
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+{% endblock pagination %}
+
+
+</section>
+{% endblock content %}

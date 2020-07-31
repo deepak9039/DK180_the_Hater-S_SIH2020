@@ -1,0 +1,32 @@
+{% extends "all.html" %}
+
+{% block content %}
+<div style="padding-top:100px;">
+    <div class="container alert
+    {% if is_pass %}
+    alert-success
+    {% else %}
+    alert-danger
+    {% endif %}
+    ">
+
+        <h2 class="alert-heading">Marks : {{quiz_taker.score}}% <span style="float: right;">
+            {% if is_pass %}
+            Pass
+            {% else %}
+        Fail
+            {% endif %}
+        
+        </span></h2> 
+        <hr style="height:4px;border:none;color:#333;background-color:#333;" /> 
+        <!-- <h4>question: {{question.label}}</h4> -->
+
+    </div> 
+</div>
+
+{% endblock content %}
+{% block script %}
+<script>
+</script>
+{% endblock script %}
+ 

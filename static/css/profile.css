@@ -1,0 +1,56 @@
+/* .jumbotron {
+    padding-top: 3rem;
+     padding-bottom: 3rem;
+    margin-bottom: 0;
+    background-color: #fff;
+  }
+  @media (min-width: 768px) {
+    .jumbotron {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  
+  .jumbotron p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .jumbotron h1 {
+    font-weight: 300;
+  }
+  
+  .jumbotron .container {
+    max-width: 40rem;
+  }
+  
+  footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  footer p {
+    margin-bottom: .25rem;
+  }
+
+  
+
+  .project-list{
+    box-shadow: 1px 5px 10px -5px rgb(126, 122, 122) !important;
+   
+}
+
+.project-list-contain{
+  max-width: 10rem !important;
+} */
+/* #profile-wrapper
+{
+  text-align: center;
+}*/
+.profile-image
+{ 
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+} 

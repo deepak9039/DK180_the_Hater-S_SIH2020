@@ -1,0 +1,94 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block title %} Job LIst {% endblock title %}
+
+{% block content %}
+    <div></div>
+    <section>
+        <!-- <h2>home page</h2> -->
+        <div class="row jumbotron m-0" style="background-color: rgb(236, 236, 236);">
+            <div class="card col-md-2 mx-3" style="max-height: 30rem;">
+                <div class="card-header">Content</div>
+                <div class="card-body" id="navbar-example3">
+                    <nav class="nav nav-pills text-dark flex-column">
+                    {% for item in object_list %}
+                        <a class="nav-link" href="#i-{{ item.id }}">{{ item.heading }}</a>
+                    {% endfor %}
+                    </nav>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+            <div class="col overflow-auto" style="max-height: 30rem;" data-spy="scroll" data-target="#navbar-example3" data-offset="0">
+                <!-- style="background-color: rgb(236, 236, 236);"> -->
+                {% for blog in object_list  %}
+                
+                <div class="mt-1 shadow card col-md-11 p-3" id="i-{{ blog.id }}" >
+                    <div class="d-flex flex-rows mt-2">
+                        <div class="">
+                            <h5 class="d-flex"><a href=" {% url 'index' blog.id blog.slug  %} " class="text-decoration-none">{{ blog.heading }}</a></h5>
+                            <small class="text-muted">created at :{{ blog.creation_date }} </small>
+                        </div>
+                        <div class="col-2 ml-auto">
+                            {{ blog.tag }}
+                        </div>
+                    </div>
+                    <div class="mt-2 p-2">
+                        {{ blog.description|striptags|truncatechars:200  }}
+                    </div>
+
+                    <hr>
+                    <div class="d-flex">
+                        <a href=" {% url 'index' blog.id blog.slug  %} " class="d-flex text-decoration-none align-items-center ">
+                            <span>View more</span>
+                            <i class="material-icons mt-1">double_arrow</i>
+                        </a>
+                        <a href="{% url 'profile_info' blog.writer.username %} " class="ml-auto mr-3 font-weight-bold text-decoration-none ">{{blog.writer.first_name}} {{blog.writer.last_name}} </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="card col-md-3 text-center mt-2" style="max-height: 30rem;">
+                <h5 class="card-header">Upload Your Project</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Benifits of uploading projects</h5>
+                    <ul>
+                        <li class="card-text">You can Earn mony.</li>
+                        <li class="card-text">Get hand on payment after one successfull downloading.</li>
+                        <!-- <li class="card-text">Get hand on payment after one successfull downloading.</li> -->
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#">
+                    FreeProject-Blog
+                </a> more Information
+            </div>
+        </div>
+    </div>
+
+
+    </section>
+    {% endblock content %}
+    {% block pagination %}
+        
+        {% if is_paginated %}
+        <nav aria-label="Page navigation example">
+            
+            <ul class="pagination justify-content-center mt-5 mr-3">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}  
+                    <a class="page-link " href="{{ request.path }}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                    {% endif %}
+                </li>
+                <li class="page-item active"><a class="page-link"href="">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </a></li>
+                
+                <li class="page-item ">
+                    {% if page_obj.has_next %}
+                    <a class="page-link " href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a> 
+                    {% endif %}
+                </li>
+        </ul>
+    </nav>
+    {% endif %}
+{% endblock pagination %}

@@ -1,0 +1,37 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block content %}
+
+<div class="" style="margin-top: 7%;"></div>
+
+<div class="container">
+    <h4>Notifications</h4>
+    <p> You have new notifications</p>
+        {% for notify in request.user.notification_set.all reversed %}
+        <a href="{{notify.url}}" id={{notify.id}} onclick="return makeRead(id)" class="text-decoration-none ">
+            <div class="media my-0 mt-3 alert alert-{% if notify.seen == False %}dark{%else%}light{%endif%}" >
+                <!-- <img src="{{job.job_image.url}}" class="align-self-start mr-3" width="80px" alt="..."> -->
+                <div class="media-body">
+                    <p class="" style="float: right;"> {{notify.date_time}} </p>
+                    <h5 class="m-0"> {{notify.heading}}..</h5>
+                    <p class="mt-2">you are seccessfully apply !! check your gmail</p>
+                    <!-- <p>you are seccessfully apply !! check your gmail </p> -->
+                    <!-- <span style="float: right;">10:30pm</span> -->
+                </div>
+            </div>  
+        </a><hr class="m-0" />
+
+    {%endfor%}
+    <div class="" style="margin-top: 15%;"></div>
+</div>  
+{% endblock content %}
+{% block script %}
+<script>
+    function makeRead(id){
+        fetch(`/makeRead/?id=${id}`)
+        .then(res=>res.json())
+        .then(data => console.log(data));
+    }
+</script>
+{% endblock script %}
+

@@ -1,0 +1,138 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cityhover.css' %}">
+{% endblock style %}
+{% block content %}
+<section >
+<div id="carouselExampleCaptions" class="carousel slide mt-0" data-ride="carousel" >
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner mt-0 p-2" style="border-radius: 15px 15px 15px 15px;">
+          <div class="carousel-item active">
+            <a href="#"><img src="{% static 'images/helloquence-OQMZwNd3ThU-unsplash.jpg' %}" class="d-block w-100" style="max-height: 650; border-radius: 15px 15px 15px 15px; " alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a href="#"><img src="{% static 'images/ian-schneider-TamMbr4okv4-unsplash.jpg' %}" class="d-block w-100" style="max-height: 650; border-radius: 15px 15px 15px 15px; " alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <a href="#"><img src="{% static 'images/pic7.jpg' %}" class="d-block w-100" style="max-height: 650; border-radius: 15px 15px 15px 15px; " alt="..."></a>
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+      <!-- job cities -->
+      <h2 class="container mt-5 d-flex justify-content-center">Job In Popular Cities</h2>
+      <hr class="container" >
+
+      <div class="card-columns mt-4 container">
+        {% for city in cities %}
+          <div class="overlay-auto " style="width: 100%; height: 30%;">
+            <div class="hovereffect mt-4">
+              <img class="img-responsive" src="{{city.image.url}}" width="400" alt="">
+              <div class="overlay">
+                 <h2>{{city.name}}</h2>
+                 <a class="info" href="{% url 'feed' %}?city={{city.name}}">link here</a>
+              </div>
+            </div>
+          </div>
+        <!-- <a href="{% url 'feed' %}?city={{city.name}} " class="card  p-0 mt-3 cardHover">
+          <img class="card-img p-0" src="{{city.image.url}}" alt="cities image" style="width: 100%; height: 30%;" class="img-thumbnail" >
+          <div class="card-img-overlay d-flex justify-content-center align-items-center">
+            <h3 class="text-white bg-dark">{{city.name}}</h3>
+          </div>
+        </a> -->
+        {% endfor %}
+      </div>
+      <hr class="container">
+  
+
+      <!-- jobs content -->
+<h2 class="container mt-5 d-flex justify-content-center">Recommended Jobs</h2>
+<hr class="container">
+
+
+            <!-- second cord -->
+            {% for job in jobs.all %}
+            <div class="card container shadow mt-4 p-4" >
+              <div class="d-flex align-item-center">
+                <h3 class="card-title">{{ job.job_title }}</h3>
+                  <img src= "{{job.job_image.url}}" width="100" height="100" class="centerCardImage ml-auto">
+                   <!-- <div class="ml-auto">...</div> -->
+              </div>
+              <div class="">
+                <h5 class="m-0 ">Company Name : {{ job.company }} </h5>
+                <!-- <small class="text-muted">job.createation_date </small>
+                <p class="text-muted m-0">330 People Applied</p> -->
+            </div>
+            <p class="mt-4 card-text" style="text-align: left;">Location : {{ job.job_location_place }} </p>
+            <div class="form-group">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm mt-2">
+                    <label class="d-inline" for="exampleInputEmail1">joindate</label>
+                    <small id="emailHelp" class="form-text ">{{ job.join_date }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Duration</label>
+                    <small id="emailHelp" class="form-text ">{{ job.duration }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Salary</label>
+                    <small id="emailHelp" class="form-text ">{{ job.salary }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Post Date</label>
+                    <small id="emailHelp" class="form-text ">{{ job.post_date }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Last Date Apply By</label>
+                    <small id="emailHelp" class="form-text ">{{ job.last_date_apply_by }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="mt-0">
+                  <p style="text-align: left;"> {{ job.location }} </p>
+                  <a href="{% url 'job' job.id %}" class="btn btn-primary">view details</a>
+              </div>
+          </div>
+          {% endfor %}
+
+
+
+
+<hr class="mt-5 container" >
+  
+
+
+</section>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/home.js' %} "></script>
+{% endblock script %}

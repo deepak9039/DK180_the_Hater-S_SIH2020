@@ -1,0 +1,55 @@
+{% extends 'all.html' %}
+{% block content %}
+<div class="" style="margin-top: 7%;"></div>
+
+  {% if jobs %}
+    {% for job in jobs.all %}
+    <div class="card container shadow mt-4 p-4" >
+              <div class="d-flex align-item-center">
+                <h3 class="card-title">{{ job.job_title }}</h3>
+                  <img src= "{{job.job_image.url}}" width="100" height="100" class="centerCardImage ml-auto">
+                   <!-- <div class="ml-auto">...</div> -->
+              </div>
+              <div class="">
+                <h5 class="m-0 "><a class="text-dark" href="#">Company Name : {{ job.company }}</a> </h5>
+                <!-- <small class="text-muted">job.createation_date </small>
+                <p class="text-muted m-0">330 People Applied</p> -->
+            </div>
+            <p class="mt-4">Location : {{ job.job_location_place }}</p>
+            <div class="form-group">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm mt-2">
+                    <label class="d-inline" for="exampleInputEmail1">joindate</label>
+                    <small id="emailHelp" class="form-text ">{{ job.join_date }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Duration</label>
+                    <small id="emailHelp" class="form-text ">{{ job.duration }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Salary</label>
+                    <small id="emailHelp" class="form-text ">{{ job.salary }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Post Date</label>
+                    <small id="emailHelp" class="form-text ">{{ job.post_date }}</small>
+                  </div>
+                  <div class="col-sm mt-2">
+                    <label for="exampleInputEmail1" class="d-inline">Last Date Apply By</label>
+                    <small id="emailHelp" class="form-text ">{{ job.last_date_apply_by }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="mt-0">
+                  <p class="card-text"> {{ job.location }} </p>
+                  <a href="{% url 'job' job.id %}" class="btn btn-primary">view details</a>
+              </div>
+          </div>
+    {% endfor %}
+{% else %}
+<h5 class="container pb-5 text danger">No data found.....  </h5>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "all.html" %}
+
+{% block content %}
+<div style="padding-top:100px;">
+    <div class="container alert alert-success">
+        {% for quiz in quiz_list %}
+        <a href="{% url "quizDetail" quiz.slug %}">
+            <h4 class="alert-heading">Paper Name : {{quiz}} <span style="float: right;">{{quiz.timestamp}}</span></h24> 
+            <hr style="height:4px;border:none;color:#333;background-color:#333;" /> 
+            <!-- <h4>question: {{question.label}}</h4> -->
+        </a>
+        {% endfor %}
+    </div> 
+    
+    <h1 class="container">Recent</h1>
+    <div class="container alert alert-dark mt-3">
+    {% for quiztaker in user.quiztaker_set.all %}
+        <h2 class="alert-heading">{{quiztaker.quiz.name}}
+            <a href="{% url 'result' quiztaker.quiz.slug %}" class="btn btn-success" style="float: right;">View Result</a>
+        </h2> 
+        <hr style="height:2px;border:none;color:#333;background-color:#333;" /> 
+        <!-- <h4>question: {{question.label}}</h4> -->
+    {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}

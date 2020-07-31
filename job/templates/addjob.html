@@ -1,0 +1,179 @@
+{% extends 'all.html' %}
+{% block content %}
+<div class="container" style="margin-top: 5%;">
+<h1 style="margin-top: 50px;">Add job</h1>
+<small>hello world..</small>
+</div>
+<form action="" method = "POST" enctype="multipart/form-data">{% csrf_token%}
+<!-- <div class="container mt-3">
+  {{job_form}} 
+  </div> -->
+  <div class="container mt-5">
+    <!-- company image -->
+    <!-- <h1 class="mt-5">add job form</h1> -->
+    <!-- company name -->
+      <div class="row">
+        <div class="col">
+          <fieldset disabled>
+          <label for="formGroupExampleInput">Company name</label>
+        <input class="form-control form-control-lg disabled" id="id_name" name="name" type="text" placeholder="" value="{{request.user}}">
+      </fieldset>
+        </div>
+        <div class="col">
+          <label for="formGroupExampleInput">job title</label>
+        <input class="form-control form-control-lg" type="text" value="{{job.job_title }} "placeholder="" id="id_job_title" name="job_title" required >
+        </div>
+      </div>
+
+      <div class="form-group mt-4">
+        <label for="exampleFormControlFile1">Company image</label>
+        <input type="file" class="form-control-file" id="id_job_image" name="job_image" id="id_image" accept="image/*" >
+      </div>
+
+    <!-- company description -->
+    <div class=" mt-4">
+      <label for="exampleFormControlTextarea1">job discription</label>
+      <textarea class="form-control" rows="5" id="id_description" name="description" required>{{job.description}}</textarea>
+    </div> 
+
+    <div class="row mt-4">
+      <div class="col">
+        <label for="formGroupExampleInput">Job Location Place</label>
+      <input class="form-control form-control-lg" type="text" placeholder="" id="id_job_location_place" name="job_location_place" value="{{job.job_location_place}}" required>
+      </div>
+      <!-- <div class="col">
+        <label for="formGroupExampleInput">Duration</label>
+      <input class="form-control form-control-lg" type="text" placeholder="">
+      </div> -->
+    </div>
+
+    <div class="row mt-4">
+
+      <div class="col">
+        <div class=" form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Location</label>
+            <select class="custom-select mr-sm-2"  name="location" id="id_location" required value="{{job.location}}">
+              <option selected>Choose...</option>
+              <option selected>Full Time</option>
+              <option selected>Part Time</option>
+              <option selected>Work From Home</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col">
+        <div class=" form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Location</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" id="id_location"  name="location">
+              <option selected>Choose...</option>
+              <option value="1">Full Time </option>
+              <option value="2">Part Time</option>
+              <option value="3">Work From Home</option>
+            </select>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col">
+        <div class=" form-row align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Duration</label>
+            <select class="custom-select mr-sm-2"  name="duration" id="id_duration" required value={{job.duration}}>
+              <option selected>Choose...</option>
+              <option selected>1 Months</option>
+              <option selected>2 Months</option>
+              <option selected>3 Months</option>
+              <option selected>4 Months</option>
+              <option selected>5 Months</option>
+              <option selected>6 Months</option>
+              <option selected>7 Months</option>
+              <option selected>8 Months</option>
+              <option selected>9 Months</option>
+              <option selected>10 Months</option>
+              <option selected>11 Months</option>
+              <option selected>1 Year</option>
+              <option selected>1.5 Year</option>
+              <option selected>2 Year</option>
+              <option selected>2.5 Year</option>
+              <option selected>3 Year</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+
+    <!-- <div class="mt-4">
+    <label for="exampleFormControlTextarea1">About Company</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
+    </div> -->
+    <div class="mt-4">
+      <label for="exampleFormControlTextarea1">About Company</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="about_company" id="id_who_can_apply" required>{{job.about_company}}</textarea>
+    </div>
+
+    <div class="mt-4">
+      <label for="exampleFormControlTextarea1">Skills Required</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="skills_required" id="id_skills_required" required>{{job.skills_required}}</textarea>
+    </div>
+
+    <!-- <div class="container mt-4">
+      <label for="formGroupExampleInput">Who Can Apply</label>
+      <input class="form-control form-control" type="text" placeholder="">
+    </div> -->
+    <div class="mt-4">
+      <label for="exampleFormControlTextarea1">Who Can Apply</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="who_can_apply" id="id_who_can_apply" required>{{job.who_can_apply}}</textarea>
+    </div>
+    
+    <div class="mt-4">
+      <label for="exampleFormControlTextarea1">Other Requirment</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="other_requirments" id="id_other_requirments" required>{{job.other_requirments}}</textarea>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
+        <label for="formGroupExampleInput">Post Date</label>
+      <input class="form-control form-control-lg" type="date" placeholder="year-month-date" name="post_date" value = "{{job.post_date}}" id="id_post_date" required>
+      </div>
+      <div class="col">
+        <label for="formGroupExampleInput">Last Date Apply By</label>
+      <input class="form-control form-control-lg" type="date" placeholder="year-month-date" name="last_date_apply_by" value="{{job.last_date_apply_by}}" id="id_last_date_apply_by" required> 
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col">
+        <label for="formGroupExampleInput">Salary</label>
+      <input class="form-control form-control-lg" type="text" placeholder="" name="salary" value="{{job.salary}}" id="id_salary" required> 
+      </div>
+      <div class="col">
+        <label for="formGroupExampleInput">Join Date</label>
+      <input class="form-control form-control-lg" type="date" placeholder="year-month-date" name="join_date" value="{{job.join_date}}" id="id_join_date" required>
+      </div>
+    </div>.
+    
+
+
+    <div class="form-group mt-5">
+        <button type="submit" class="btn btn-primary " data-toggle="button" aria-pressed="false">
+          Upload job
+        </button>
+    </div>
+  </div>
+  </form>
+
+  <!-- {{job_form}} -->
+{% endblock content %}
+{% block script %}
+<script>
+  function setDate(date) {
+    return new Date(date).toJSON().substring(0,10);    
+  }
+  $("#id_post_date").val(setDate("{{job.post_date}}")) 
+  $("#id_last_date_apply_by").val(setDate("{{job.last_date_apply_by}}"))
+  $("#id_join_date").val(setDate("{{job.join_date}}"))
+</script>
+{% endblock script %}

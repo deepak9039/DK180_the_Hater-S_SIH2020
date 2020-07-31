@@ -1,0 +1,71 @@
+{% extends "all.html" %}
+
+{% block content %}
+<div style="padding-top:100px;">
+    <div class="container alert alert-success">
+        {% for question in quiz.question_set.all %}
+        <h2>question: {{question.label}}</h2>
+        <hr style="height:3px;border:none;color:#333;background-color:#333;" />
+            {% for answer in  question.answer_set.all %}
+                <br>
+                <div class="form-check">
+                    <input onchange="selectIt('{{answer.id}}','{{question.id}}');" class="form-check-input" name= "ans_{{question.id}}" type="radio" value="{{answer}}" id="defaultCheck-{{forloop.counter}}-{{question.id}}">
+                    <label class="form-check-label" for="defaultCheck-{{forloop.counter}}-{{question.id}}">
+                        {{answer}}  
+                    </label>
+                  </div> 
+                
+            {% endfor %}
+            <hr>
+            
+            {% endfor %}
+            <form method="POST" action="{% url "saveUserAnswer" %}" >  {% csrf_token %} 
+                <input type="hidden" name = "allData" id="all-data" value = "{}"/>
+                <input type="hidden" name = "quizTaker" value ="{{quiztaker.id}}"/>
+                <button type="submit" class="btn btn-primary btn-lg" onclick="SubmitQuiz()" >Submit</button>
+            </form>
+                
+    </div> 
+</div>
+
+{% endblock content %}
+{% block script %}
+<script>
+    var FileJson = new Object();
+    var distinct = [];
+    var el = document.getElementById("all-data");
+    console.log(FileJson);
+    function selectIt(ans_id,q_id){
+        if(q_id in distinct === false){
+            FileJson[q_id] = ans_id
+            distinct.push(q_id)
+            el.value = JSON.stringify(FileJson)
+        }else{
+            delete FileJson[q_id];
+            FileJson[q_id] = ans_id;   //Done✌✌
+            el.value = JSON.stringify(FileJson)
+        }
+        // console.log(q_id in distinct);
+        console.log(FileJson);
+        console.log(el);
+    }
+
+    function SubmitQuiz()
+    {
+        var strconfirm = confirm("Are you sure you want to submit the quiz ?");
+        if (strconfirm == true)
+        {
+            return true;
+        }
+        // else (strconfirm == true)
+        // {
+        //     return true;
+        // }
+    }
+
+
+
+
+</script>
+{% endblock script %}
+ 

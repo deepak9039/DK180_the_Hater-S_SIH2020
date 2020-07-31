@@ -1,0 +1,20 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block content %}
+<div class="" style="margin-top: 7%;"></div>
+<div class="container">
+    <h4>You have applied to this jobs !!    </h4>
+        {% for job in request.user.profile.job_set.all reversed %}
+        <a href="{% url 'job' job.id %}" class="text-decoration-none">
+            <div class="media alert alert-success mt-3" >
+                <img src="{{job.job_image.url}}" class="align-self-start mr-3" width="80px" alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0"> {{job}}</h5>
+                    <p>{{job.description|truncatewords:50 }}</p>
+                    <p>you are seccessfully apply !! check your gmail</p>
+                </div>
+            </div>
+        </a>
+    {%endfor%}
+</div>  
+{% endblock content %}

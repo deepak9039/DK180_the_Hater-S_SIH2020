@@ -1,0 +1,66 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block content%}
+<div class="" style="margin-top: 7%;"></div>
+        <form action="" id="register" method="POST">{% csrf_token %}
+
+          <div class="container shadow mb-5 mt-5" >
+                <div class="col-md-6 mb-3 mt-5 pt-5 container">
+                  <label for="validationCustom01">Name</label>
+                  <input type="text" class="form-control" id="validationCustom01" value="" required name="name">
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3 container">
+                  <label for="validationCustomUsername">Username</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="username" required>
+                    <div class="invalid-feedback">
+                      Please choose a username.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6 mb-3 container">
+                  <label for="inputEmail4">Email</label>
+                  <input type="email" class="form-control" id="inputEmail4" name="email" required>
+                </div>
+
+                  <div class="form-group col-md-6 mb-3 container">
+                    <label for="inputPassword6">Password</label>
+                    <input type="password" id="inputPassword6" class="form-control mx-sm-0 " aria-describedby="passwordHelpInline" name="password" required>
+                    <small id="passwordHelpInline" class="text-muted ">
+                      Must be 8-20 characters long.
+                    </small>
+                  </div>
+
+                  <div class="form-group col-md-6 mb-3 container">
+                    <label for="inputPassword66">Confirm Password</label>
+                    <input type="password" id="inputPassword66" class="form-control mx-sm-0 " aria-describedby="passwordHelpInline" name="conf_password" required>
+
+                  </div>
+                  <div class="form-group col-md-6 mb-3 container">
+                    <div class="g-recaptcha" data-sitekey="6LcRvrcZAAAAAL_tnRAyO_zlrYGoA2Gyhp40wP3P" require></div>  
+                  </div>
+                  
+                  <div class="form-group col-md-6 mb-5 pb-5 container">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block mt-4" data-toggle="button" aria-pressed="false">
+                    Signin
+                  </button>
+                  </div>
+            </div>
+          
+        </form>
+
+
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js/studentsignup.js' %} "></script>
+{% endblock script %}

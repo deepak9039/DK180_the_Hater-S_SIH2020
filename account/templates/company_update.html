@@ -1,0 +1,49 @@
+{% extends 'all.html' %}
+{% block content%}
+<div style="margin-top: 7%;"></div>
+  <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+  <div class="container shadow mb-5"> 
+    <div class="col-md-6 mb-3 mt-5 pt-5 container ">
+      <label for="validationCustom01">Company Name</label>
+      <input type="text" class="form-control" id="validationCustom01" value="{{ request.user.first_name}}" placeholder="Name of Company" name="company_name" required >
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <!-- <div class="mt-4"> 
+        {{forms.as_p}}
+      </div> -->
+    </div>
+
+    <div class="form-group col-md-6 mb-3 container">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" name="email" value="{{ request.user.email}}" required>
+    </div>
+    
+    <div class="col-md-6 mb-3 container">
+      <label for="validationCustomUsername">Username</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend">@</span>
+        </div>
+        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="username" value="{{request.user.username}}" required>
+        <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-md-6 mb-3 container">
+      <label for="inputPassword6">Description</label>
+      <textarea class="form-control mx-sm-0 " rows=4 name="desc" required>{{user.company.description}}</textarea>
+      <small id="passwordHelpInline" class="text-muted ">
+        Must be 8-20 characters long.
+      </small>
+      
+    </div>
+    <div class="form-group col-md-6  pb-5 container">
+      <button type="submit" class="btn btn-primary btn-lg btn-block " data-toggle="button" aria-pressed="false">
+        Update
+      </button>
+      </div>
+    </div>
+  </form>
+{% endblock content %}

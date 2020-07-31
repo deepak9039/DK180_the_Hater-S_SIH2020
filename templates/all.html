@@ -1,0 +1,307 @@
+{% load static %}
+{% load custom_tag %}
+
+<html style="position: sticky !important;">
+    <head>
+        <title>Home Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block style %}
+        
+        {% endblock style %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" >
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+
+    </head>
+    <body>
+      
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+            
+      <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="position: absolute;" > -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mainNavbar " >
+        <div class="container">
+        <a class="navbar-brand" href="/"><img src="{% static 'images/SIH2020-logo.png' %}" width="100px" height="60px"  alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+            <div class="d-flex ">
+              <div class="dropdown mr-1">
+                <!-- <button type="button" class="btn text-light dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                  Job-Category
+                </button> -->
+                <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                  Job category
+                </a>
+                <style>
+                  .dropdown:hover>.dropdown-menu
+                  {
+                    display: block;                                                                                         
+                  }
+                </style>
+
+                <div class=" dropdown-menu"  aria-labelledby="dropdownMenuOffset">
+                  
+                    <div class="row">
+                      <div class="col-md-6 ml-5">
+                        <p>Category</p>
+                        <p>
+                          {% for job in jobs.all %}
+                            <div class="mt-0">
+                              <a href="{% url 'feed' %}?city={{job.job_title}}"> <p> {{ job.job_title }} </p></a>
+                            </div>
+                          {% endfor %}
+                        </p>
+                      </div>
+                      <div class="col-md-6 ml-5">
+                        <p>Location</p>
+                        <p>
+                          {% for job in jobs.all %}
+                            <div class="mt-0">
+                              <a href="{% url 'feed' %}?city={{job.job_location_place}}"> <p> {{ job.job_location_place }} </p></a>
+                            </div>
+                          {% endfor %}
+                      </p>
+                      </div>                  
+                    </div>
+                  
+                </div>
+              </div>
+            </div>
+          </li>
+          {% if user.company %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'addjob' %}">Add-Job<span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
+          </ul>
+          <!-- search        -->
+          <form class="form-inline col-6 my-lg-2" id="searchForm" method="POST" action="{% url 'search' %}">{% csrf_token %}
+            <input class="form-control mr-sm-2 col-9" name="search" type="search?redirect={{request.path}}" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
+          <!-- notification icon -->
+          <!--For modern browsers-->
+          <div>
+          <a href="{% url 'notification' %}">
+          <i class="material-icons text-light mr-sm-0">
+            add_alert
+            </i>
+            <div class="mx-auto">
+              <span style="position: relative;" class="badge badge-light ml-1" >{{user.notification_set|count_notification }}</span>
+            </div>
+          </a>
+        </div>
+
+          <!-- Button trigger modal -->
+          {% if request.user.is_authenticated %}
+
+              <div class="dropdown mr-1">
+                <button type="button" class="btn text-light dropdown-toggle active" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                  {{request.user.username}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
+                  <a class="dropdown-item" href="{%url 'profile' request.user.username %}">Profile</a>
+                  {% if user.company %}
+                  <a class="dropdown-item" href="{%url 'company_application'  %}">Company Applications</a>
+                  {% endif %}
+                  {% if not user.company %}
+                    <a class="dropdown-item" href="{%url 'applied_job'  %}">My Applications</a>
+                    <a class="dropdown-item" href="{%url 'myQuizList'  %}">Give Exam</a>
+                    {%endif%}
+                  <a class="dropdown-item text-warning" href="{% url 'logout' %}">Logout</a>
+                  {% comment %} <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="#">All</a> {% endcomment %}
+                </div>
+              </div>
+              
+          {% else %}
+          <li class="nav-item active nav-link"></li>
+              <button type="button" class="btn btn-secondary btn-lg  mr-sm-0 text-light" data-toggle="modal" data-target="#exampleModal">
+                Login
+              </button>
+              <li class="nav-item active nav-link"></li>
+              <div class="dropdown mr-5">
+                <button class="btn btn-secondary btn-lg  dropdown-toggle text-light" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Register
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <a style="text-decoration: none;" href="{% url 'signup' %}"><button class="dropdown-item" type="button">As a Student</button></a>
+                  <a style="text-decoration: none;" href="{% url 'companysignup' %}"><button class="dropdown-item" type="button">As an Company</button></a>
+                </div>
+              </div>
+              {% endif %}
+        </div>
+      </div>
+      </nav>
+
+      {% if messages %}
+      {% for message in messages %}
+      <div class="" style="margin-top: 7%;"></div>
+      <div class="alert {{ message.tags }} alert-dismissible text-center mt-5 mb-0" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span class="mr-auto d-flex">{{ message }}</span>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+        {% comment %} </form > {% endcomment %}
+        <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog h-100 d-flex justify-content-center align-items-center" role="document">
+        <div class="modal-content h-40" style="width: 0;">
+          <div class="box mt-0 ">
+          <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+            <button type="button" style="color: white;" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h1>Login </h1>
+            <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+              <div class="input-box">
+                <input name="loginusername" id="loginusername" type="text" placeholder="Username" required>
+                <input name="loginpassword" id="loginpassword" type="password" placeholder="Password" required>
+                <p>
+                  <!-- <a href="">Create New Account</a> -->
+                  <a href="{% url 'reset_password' %}" style="float: right;" >Forgot Password</a>
+                </p>
+              </div>
+              <input type="submit" value="Login">
+            </form> 
+          </div> 
+          </div>
+        </div>
+      </div>
+      {% block content %}
+      {% endblock content %}
+    {% comment %} footer {% endcomment %}
+
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4" style="background-color: #1d2973;">
+  <hr>
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left" >
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-sm-12 mt-sm-0 mt-3">
+
+        <!-- Content -->
+        <h2 class="text " style="color: white;">Free Jobs</h2>
+        <p style="color: white;"> We are provided the free jobs according to student intrest</p>
+
+      </div>
+      <!-- Grid column -->
+
+
+      <div class="col-md-3 col-sm-4 col-xs-12 mb-sm-0  mb-3">
+
+        <!-- Links -->
+        <h5 class="" style="color: white;">Communnity</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#">About Us</a>
+          </li>
+          <li>
+            <a href="#">Our Team</a>
+          </li>
+          <li>
+            <a href="#">Contact Us</a>
+          </li>
+          <li>
+            <a href="#!">Term ans Condition</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="col-md-3 col-sm-4 col-xs-6 mb-sm-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="" style="color: white;">Jobs</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#"> Web Development </a>
+          </li>
+          <li>
+            <a href="#">Data Science</a>
+          </li>
+          <li>
+            <a href="#"></a>
+          </li>
+          <li>
+            <a href="#">Soft Ware</a>
+          </li>
+          <li>
+            <a href="#">Hard Ware</a>
+          </li>
+          <li>
+            <a href="#">More</a>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 mb-sm-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="" style="color: white;">Social Media</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="#" target="_blank">Facebook</a>
+          </li>
+          <li>
+            <a href="#" target="_blank">Instagram</a>
+          </li>
+          <li>
+            <a href="#" target="_blank">Twitter</a>
+          </li>
+        </ul>
+
+      </div>
+      
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="container  mt-3" style="text-align: center; color: white;">© 2020 Copyright:
+    <a  href="#"> Free Jobs.com</a>
+  
+  </div>
+  
+  <!-- Copyright -->
+
+</footer>
+    <!-- Go to www.addthis.com/dashboard to customize your tools
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e808c179f168fc2"></script>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e808c179f168fc2"></script> -->
+
+      
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% block script %}{% endblock script %}
+  </body>
+    
+    </html>
+    
+

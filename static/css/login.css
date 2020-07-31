@@ -1,0 +1,57 @@
+.box
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background: rgba(0,0,0,.8);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.5);
+    border-radius: 10px;
+}
+.box h1
+{
+    padding: 0 0 40px;
+    margin: 0;
+    color: white;
+    text-align: center;
+}
+.box .input-box
+{
+    position: relative;
+}
+.box .input-box input
+{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    background: transparent;
+
+}
+input[type=submit]
+{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0;
+    margin-top: 30px;
+    outline: none;
+    border: none;
+    background: #60adde;
+    opacity: 0.7;
+    border-radius: 20px;
+    font-size: 20px;
+    color: #fff;
+
+}
+input[type=submit]:hover
+{
+    background: #003366;
+    opacity: 0.7;
+}

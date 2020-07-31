@@ -1,0 +1,104 @@
+{% extends 'all.html' %}
+{% load static %}
+{% block title %} {{blog.heading}} {% endblock title %}
+{% block content %}
+<div style="padding: 30px;"></div>
+
+<section>
+    <div class="jumbotron pt-4">
+        <div class="card shadow container col-md-7">
+            <h5 class="card-header d-flex"> 
+                <i class="material-icons ml-2">loyalty</i>
+                {% if request.user.id  %}
+                <a href="#" class="text-danger ml-3" id="delete-project"
+                    onclick="return confirm('Are you sure ?')">
+                    <i class="ml-auto material-icons mx-2">delete</i>
+                </a>
+                <a href="" class="text-dark ml-3"><i
+                    class="material-icons">edit</i></a>
+
+                {% endif %}
+            </h5>
+            <div class="card-body overflow-auto ">
+                <!-- <h5 class="card-title">{{job.name}}</h5>
+              <p class="card-text">{{job.description|safe}}</p> -->
+              <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+              <div class="card-body overflow-auto ">  
+                <div class="d-flex align-item-center">
+                  <h3 class="card-title">{{ job.job_title}}</h3>
+                    <img src="{{ job.job_image.url }}" width="100" height="100" class="centerCardImage ml-auto">
+                </div>
+                  <h5 class="m-0 "><a class="text-dark" style="text-decoration: none;" href="#">Company Name : {{ job.company }}</a> </h5>
+              <p class="mt-4">Location : {{ job.job_location_place }}</p>
+              <div class="form-group">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm mt-2">
+                      <label class="d-inline" for="exampleInputEmail1">joindate</label>
+                      <small id="emailHelp" class="form-text ">{{ job.join_date }}</small>
+                    </div>
+                    <div class="col-sm mt-2">
+                      <label for="exampleInputEmail1" class="d-inline">Duration</label>
+                      <small id="emailHelp" class="form-text ">{{ job.duration }}</small>
+                    </div>
+                    <div class="col-sm mt-2">
+                      <label for="exampleInputEmail1" class="d-inline">Salary</label>
+                      <small id="emailHelp" class="form-text ">{{ job.salary }}</small>
+                    </div>
+                    <div class="col-sm mt-2">
+                      <label for="exampleInputEmail1" class="d-inline">Post Date</label>
+                      <small id="emailHelp" class="form-text ">{{ job.post_date }}</small>
+                    </div>
+                    <div class="col-sm mt-2">
+                      <label for="exampleInputEmail1" class="d-inline">Last Date Apply By</label>
+                      <small id="emailHelp" class="form-text ">{{ job.last_date_apply_by }}</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="mt-0">
+                    <p class="card-text"> {{ job.location }} </p>
+
+                    <div class=" mt-5">
+                        <label for="exampleInputEmail1" class="d-inline">About Company :</label>
+                        <small id="emailHelp" class="form-text ">{{ job.about_company }}
+                        </small>
+                      </div>
+
+                      <div class=" mt-5">
+                        <label for="exampleInputEmail1" class="d-inline">Job Discription :</label>
+                        <small id="emailHelp" class="form-text ">{{ job.description }}
+                        </small>
+                      </div>
+                      
+                      <div class=" mt-4">
+                        <label for="exampleInputEmail1" class="d-inline">Who Can Apply : Those Condidates Are Apply</label>
+                        <small id="emailHelp" class="form-text ">{{ job.who_can_apply }}
+                        </small>
+                      </div>
+
+                      <div class=" mt-4">
+                        <label for="exampleInputEmail1" class="d-inline">Skills Required</label>
+                        <small id="emailHelp" class="form-text ">{{ job.skills_required }}
+                        </small>
+                      </div>
+
+                      <div class=" mt-4">
+                        <label for="exampleInputEmail1" class="d-inline">Other Requirments</label>
+                        <small id="emailHelp" class="form-text ">  {{ job.other_requirments }}
+                        </small>
+                      </div>
+
+                    <a href="{% url 'apply_job' job.id %}" type="submit" class="btn btn-primary btn-lg btn-block mt-5 mb-5" style="border-radius: 5rem;">Apply</a>
+                    
+                </div>
+        </div>
+            </div>
+            <div class="card-footer text-muted d-flex">
+                <span>{{jobcreateation_date.creation_date}}</span>
+                <span class="ml-auto text-light p-1 bg-dark rounded">{{blog.writer.first_name}} {{blog.writer.last_name}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

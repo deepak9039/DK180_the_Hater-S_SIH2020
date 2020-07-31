@@ -1,0 +1,29 @@
+#leftCard{
+    max-width: 19rem; 
+    /* position: fixed; */
+    max-height: 35rem;
+
+}
+
+#leftCardImage{
+    position: relative;
+
+    width: 7rem;
+    height: 7rem;
+}
+
+#leftCardImageBox{
+    position: absolute;
+    width: 18rem;
+    padding: 60px;
+}
+
+.centerCardImage{
+    width: 4rem;
+    height: 4rem;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #291e1e!important;
+    color: white !important;
+}

@@ -1,0 +1,68 @@
+{% extends "all.html" %}
+{% block content %}
+
+<section>
+    <div style="padding: 30px;"></div>
+
+<div class="mt-5 container">
+    <h5>Please fill the form Below</h5>
+    <small>hello world..</small>
+<!--     
+    <input class="form-control form-control-lg container" type="text" placeholder="">
+     : <br/> -->
+<form action="{% url 'modify_profile' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <div class="col-5 mt-4 p-0">
+        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+        <div class="input-group ">
+        <div class="input-group-prepend">
+            <div class="input-group-text">@</div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" value="{{request.user.username}}" name="username">
+      </div>
+    </div>
+
+    
+    <div class="row mt-4">
+        <div class="col">
+            <label for="">First Name</label>
+            <input type="text" class="form-control" placeholder="First name" value="{{request.user.first_name}}" name="firstname">
+        </div>
+        <div class="col">
+            <label for="">Last Name</label>
+            <input type="text" class="form-control" placeholder="Last name" value="{{request.user.last_name}}" name="lastname">
+        </div>
+    </div>
+
+    <div class="form=group my-4">
+        <label for="disabledTextInput">Email</label>
+        <input type="text" id="disabledTextInput" class="form-control" value="{{ request.user.email}}" name = "mail">
+    </div>
+
+
+
+    {{form.as_p}}
+
+{% comment %} 
+        <label for="disabledTextInput">Intereste</label>
+        <input type="textarea" id="disabledTextInput" class="form-control" placeholder="">
+
+
+
+        <label for="exampleFormControlTextarea1">Add Skills</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+
+
+        <label for="exampleFormControlTextarea1">Work Applied For</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+
+
+        <label for="exampleFormControlTextarea1">Certificates</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1"  placeholder="Required example textarea" rows="3" ></textarea> {% endcomment %}
+    <button class="btn btn-primary mt-5" type= "submit">Submit Form</button>
+</form>
+
+</div>
+</section>
+{% endblock content %}

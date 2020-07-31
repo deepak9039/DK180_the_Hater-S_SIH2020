@@ -1,0 +1,37 @@
+/* *{
+    border: 1px solid black;
+} */
+.carausel-image-button{
+    padding: 25px !important;
+    background-color: blue !important;
+    border-radius: 50px;
+}
+
+.mainNavbar{
+    background: transparent !important;
+    /* background-color: none !important; */
+    /* background-color: transparent; */
+    /* background-color: rgba(0,0, 0, 0); */
+}
+.card-columns {
+    @include media-breakpoint-only(lg) {
+      column-count: 4;
+    }
+    
+    @include media-breakpoint-only(xl) {
+      column-count: 5;
+    }
+}
+#searchForm{
+    visibility: hidden;
+}
+
+.cardHover{
+    box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+}
+.cardHover:hover{
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+}
+
