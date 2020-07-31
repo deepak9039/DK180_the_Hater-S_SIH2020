@@ -1,32 +1,60 @@
 {% extends "all.html" %}
 
 {% block content %}
-<div style="padding-top:100px;">
-    <div class="container alert
-    {% if is_pass %}
-    alert-success
-    {% else %}
-    alert-danger
-    {% endif %}
-    ">
+<section class="
+{% if is_pass %}
+    bg-success
+{% else %}
+    bg-danger
+{% endif %}
+"> 
 
-        <h2 class="alert-heading">Marks : {{quiz_taker.score}}% <span style="float: right;">
+    <div style="padding-top:150px;min-height:500px;padding-bottom: 150px    ;" class="container">
+        <div class="card shadow text-center p-5" style="border:2px dotted rgb(0, 56, 0)!important;">
+            
+            <div>
             {% if is_pass %}
-            Pass
+                <span class="material-icons text-success" style="font-size: 100px;">
+                    sentiment_very_satisfied
+                </span>
             {% else %}
-        Fail
+                <span class="material-icons text-danger" style="font-size: 100px;">
+                    sentiment_very_dissatisfied
+                </span>
             {% endif %}
+        </div>
+        <h1>Marks : <span class="text-danger">{{quiz_taker.score}}</span> %</h1>
         
-        </span></h2> 
-        <hr style="height:4px;border:none;color:#333;background-color:#333;" /> 
-        <!-- <h4>question: {{question.label}}</h4> -->
-
-    </div> 
+        <div style="font-size: 60px;font-family: comic sans ms;" >
+            {% if is_pass %}
+            PASS !!
+            {% else %}
+            FAIL !!
+            {% endif %}
+        </div>
+    </div>
+    <!-- 
+        <div class="container alert
+    
+    ">
+    
+    <h2 class="alert-heading">Marks : {{quiz_taker.score}}% <span style="float: right;">
+        {% if is_pass %}
+        Pass
+        {% else %}
+        Fail
+        {% endif %}
+        
+    </span></h2> 
+    <hr style="height:4px;border:none;color:#333;background-color:#333;" /> 
+    
+</div>  -->
 </div>
+<!-- <h4>question: {{question.label}}</h4> -->
+</section>
 
 {% endblock content %}
 {% block script %}
 <script>
 </script>
 {% endblock script %}
- 

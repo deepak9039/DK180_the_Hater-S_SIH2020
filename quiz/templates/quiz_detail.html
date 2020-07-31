@@ -2,30 +2,30 @@
 
 {% block content %}
 <div style="padding-top:100px;">
-    <div class="container alert alert-success">
-        {% for question in quiz.question_set.all %}
-        <h2>question: {{question.label}}</h2>
-        <hr style="height:3px;border:none;color:#333;background-color:#333;" />
-            {% for answer in  question.answer_set.all %}
-                <br>
-                <div class="form-check">
-                    <input onchange="selectIt('{{answer.id}}','{{question.id}}');" class="form-check-input" name= "ans_{{question.id}}" type="radio" value="{{answer}}" id="defaultCheck-{{forloop.counter}}-{{question.id}}" required>
-                    <label class="form-check-label" for="defaultCheck-{{forloop.counter}}-{{question.id}}">
-                        {{answer}}  
-                    </label>
-                  </div> 
-                
-            {% endfor %}
-            <hr>
-            
-            {% endfor %}
+    <h1 class="d-flex justify-content-center mx-4" style="font-family: consolas;border-style: dashed;">Questions</h1>
+    {% for question in quiz.question_set.all %}
+    <div class="container shadow my-4 py-2 card "> <br/>
+        <h3>{{forloop.counter}} : {{question.label}}</h3>
+        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+        {% for answer in  question.answer_set.all %}
+        <div class="form-check">
+            <input onchange="selectIt('{{answer.id}}','{{question.id}}');" class="form-check-input  d-flex" name= "ans_{{question.id}}" type="radio" value="{{answer}}" id="defaultCheck-{{forloop.counter}}-{{question.id}}" required>
+            <label class="form-check-label" for="defaultCheck-{{forloop.counter}}-{{question.id}}">
+                {{answer}}  
+            </label>
+        </div> 
+        <br>
+        {% endfor %}
+    </div> 
+    {% endfor %}
+            <div class="container">
             <form method="POST" action="{% url "saveUserAnswer" %}" >  {% csrf_token %} 
                 <input type="hidden" name = "allData" id="all-data" value = "{}"/>
                 <input type="hidden" name = "quizTaker" value ="{{quiztaker.id}}"/>
                 <button type="submit" class="btn btn-primary btn-lg" onclick="return confirm('Are you sure you want to submit the quiz ?')" >Submit</button>
             </form>
+            </div>
                 
-    </div> 
 </div>
 
 {% endblock content %}
