@@ -15,14 +15,20 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" >
         <!-- Go to www.addthis.com/dashboard to customize your tools -->
-
+        <style>
+          .dropdown:hover>.dropdown-menu
+          {
+            display: block;                                                                                         
+          }
+        </style>
+        
     </head>
     <body>
       
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
             
       <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="position: absolute;" > -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mainNavbar " >
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top  " >
         <div class="container">
         <a class="navbar-brand" href="/"><img src="{% static 'images/SIH2020-logo.png' %}" width="100px" height="60px"  alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,37 +49,36 @@
                 <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                   Job category
                 </a>
-                <style>
-                  .dropdown:hover>.dropdown-menu
-                  {
-                    display: block;                                                                                         
-                  }
-                </style>
-
-                <div class=" dropdown-menu"  aria-labelledby="dropdownMenuOffset">
-                  
-                    <div class="row">
-                      <div class="col-md-6 ml-5">
-                        <p>Category</p>
-                        <p>
-                          {% for job in jobs.all %}
-                            <div class="mt-0">
-                              <a href="{% url 'feed' %}?city={{job.job_title}}"> <p> {{ job.job_title }} </p></a>
-                            </div>
-                          {% endfor %}
-                        </p>
+                <div class=" dropdown-menu "  aria-labelledby="dropdownMenuOffset">
+                  <!-- Default dropright button -->
+                  <div class="btn-group dropright dropdown-item">
+                      <button type="button" class="btn dropdown-toggle" id="dropdownCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Location
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownCity">
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=bhopal">Bhopal</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=hyderabad">Hyderabad</a> 
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=mumbai">Mumbai</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=banglore">Banglore</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=kolkata">Kolkata</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?city=delhi">Delhi</a>
                       </div>
-                      <div class="col-md-6 ml-5">
-                        <p>Location</p>
-                        <p>
-                          {% for job in jobs.all %}
-                            <div class="mt-0">
-                              <a href="{% url 'feed' %}?city={{job.job_location_place}}"> <p> {{ job.job_location_place }} </p></a>
-                            </div>
-                          {% endfor %}
-                      </p>
-                      </div>                  
-                    </div>
+                  </div>
+                  
+                  <!-- Default dropright button -->
+                  <div class="btn-group dropright dropdown-item">
+                      <button type="button" class="btn dropdown-toggle" id="dropdownCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Catagory
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownCity">
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=software">Software</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=django">Django</a> 
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=hardware">Hardware</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=web development">Web Development</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=python developer">Python Developer</a>
+                        <a class="dropdown-item" href="{% url 'feed' %}?catagory=database">Data Base</a>
+                      </div>
+                  </div>
                   
                 </div>
               </div>
@@ -86,7 +91,7 @@
             {% endif %}
           </ul>
           <!-- search        -->
-          <form class="form-inline col-6 my-lg-2" id="searchForm" method="POST" action="{% url 'search' %}">{% csrf_token %}
+          <form class="form-inline col-6 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
             <input class="form-control mr-sm-2 col-9" name="search" type="search?redirect={{request.path}}" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
@@ -156,7 +161,6 @@
       {% endfor %}
     {% endif %}
 
-        {% comment %} </form > {% endcomment %}
         <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog h-100 d-flex justify-content-center align-items-center" role="document">

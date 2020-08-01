@@ -16,9 +16,11 @@ class JobListView(ListView):
     template_name  = "job_feed.html"
     paginate_by = 10
     def get_queryset(self):
-        word = self.request.GET["city"]
-        word  = word.lower()
-        return Job.objects.filter(Q(job_location_place__icontains= word) | Q(job_title= word) ) 
+        word = self.request.GET.get("city","")
+        cat = self.request.GET.get("catagory","")
+        if word:
+            word  = word.lower()
+        return Job.objects.filter(Q(job_location_place__icontains= word) | Q(job_title= word) | Q(job_title= cat) ) 
 
 def view_job(request,pk):
     job = Job.objects.get(id =pk)

@@ -83,7 +83,7 @@ def saveUserAnswer(request):
             print(quiztaker.score)
             quiztaker.save()
 
-            return redirect("result",quiztaker.quiz)
+            return redirect("result",quiztaker.quiz.slug)
 
         else:
             return HttpResponse("please select atleast one")
