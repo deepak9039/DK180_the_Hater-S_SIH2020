@@ -1,4 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
+from django.http import JsonResponse
+from django.core import serializers
+
 from .models import Job
 from .forms import *
 from django.core.mail import send_mail
@@ -129,3 +132,13 @@ def applied_job(request):
 
 def company_application(request):
     return render(request, "company_application.html")
+
+def searchJSON(request):
+    
+    search1 = request.GET['search'] 
+    if search1:
+        match = Job.objects.filter(Q(job_title__icontains=search1) | Q(job_location_place__icontains=search1))
+        return JsonResponse(serializers.serialize(format="json",queryset=match),safe=False)
+        print(match)
+    else:
+        return redirect("/")

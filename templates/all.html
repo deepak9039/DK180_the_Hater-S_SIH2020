@@ -91,10 +91,19 @@
             {% endif %}
           </ul>
           <!-- search        -->
-          <form class="form-inline col-6 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
-            <input class="form-control mr-sm-2 col-9" name="search" type="search?redirect={{request.path}}" placeholder="Search">
+          <form class="form-inline col-7 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
+            <input class="form-control mr-sm-2 col-9" onkeyup="preventSearch();" id="SearchData" name="search" type="search?redirect={{request.path}}" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <!-- <div class="form-group mt-1">
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" cols="44"></textarea>
+            </div> -->
           </form>
+          <div class="col-5 position-absolute d-flex justify-content-center" style="margin-top:225px; margin-left: 165px;" id="searchSuggestion">
+            <div class="col-md-8 overflow-auto" id="searchquary">
+
+            </div>
+          </div>
+
 
           <!-- notification icon -->
           <!--For modern browsers-->
@@ -291,21 +300,53 @@
   
   </div>
   
-  <!-- Copyright -->
-
 </footer>
-    <!-- Go to www.addthis.com/dashboard to customize your tools
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e808c179f168fc2"></script>
+<script>
+  
+  async function preventSearch(){
+    var query = document.getElementById("SearchData").value; 
+    $("#searchquary").empty()
+    
+    await fetch(`/searchJSON/?search=${query}`)
+    .then(res=>res.json())
+    .then(data=>{
+      // console.log(data)
+      var data1 = JSON.parse(data);
+      if(data1.length !== 0 ){
+        data1.map(item=>{
+          $("#searchquary").append(`
+          <a href="/job/${item.pk}" class="card p-3 text-info text-decoration-none px-3 shadow ">
+            <p class="m-0 d-flex">${item.fields.job_title}</p>
+            </a>
+            `)
+            // console.log(item)
+          })
+        } else {
+          $("#searchquary").empty()
+          $("#searchquary").append(`
+        <a href="#" class="card p-3 text-info text-decoration-none px-3 shadow ">
+          <p class="m-0 d-flex">Not Found </p>
+        </a>
+        `)
+      }
+    })
+    .catch(e=>{
+      console.log(e);
+    })
+  } 
+  
+  
 
-      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e808c179f168fc2"></script> -->
+</script>
 
-      
+
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     {% block script %}{% endblock script %}
   </body>
-    
-    </html>
+</html>
     
 

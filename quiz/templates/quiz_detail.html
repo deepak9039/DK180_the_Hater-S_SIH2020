@@ -1,9 +1,29 @@
 {% extends "all.html" %}
 
+{% block style %}
+<style>
+    #mydiv{
+        position: fixed;
+        z-index: 99999999999;
+        width:250px !important;
+        transform: translate(5%,400%);
+    }
+    #mydivheader{
+        cursor: move;
+        width:100% !important;
+    }
+</style>
+{% endblock style %}
 {% block content %}
-<div style="padding-top:100px;">
+<!-- Draggable DIV -->
+<div id="mydiv">
+    <div class="pl-3 d-flex bg-primary text-light card shadow" id="mydivheader">
+        <h2 id="countdown">Time : 0:0:0</h2>
+    </div>
+</div>
+<div style="padding-top:100px;" id="secure">
     <h1 class="d-flex justify-content-center mx-4" style="font-family: consolas;border-style: dashed;">Questions</h1>
-    {% for question in quiz.question_set.all %}
+        {% for question in quiz.question_set.all %}
     <div class="container shadow my-4 py-2 card "> <br/>
         <h3>{{forloop.counter}} : {{question.label}}</h3>
         <hr style="height:1px;border:none;color:#333;background-color:#333;" />
@@ -19,14 +39,16 @@
     </div> 
     {% endfor %}
             <div class="container">
-            <form method="POST" action="{% url "saveUserAnswer" %}" >  {% csrf_token %} 
+            <form method="POST" action="{% url "saveUserAnswer" %}" id="ExamForm"  >  {% csrf_token %} 
                 <input type="hidden" name = "allData" id="all-data" value = "{}"/>
                 <input type="hidden" name = "quizTaker" value ="{{quiztaker.id}}"/>
                 <button type="submit" class="btn btn-primary btn-lg" onclick="return confirm('Are you sure you want to submit the quiz ?')" >Submit</button>
             </form>
             </div>
-                
-</div>
+        </div>
+
+
+
 
 {% endblock content %}
 {% block script %}
@@ -34,7 +56,6 @@
     var FileJson = new Object();
     var distinct = [];
     var el = document.getElementById("all-data");
-    console.log(FileJson);
     function selectIt(ans_id,q_id){
         if(q_id in distinct === false){
             FileJson[q_id] = ans_id
@@ -46,25 +67,87 @@
             el.value = JSON.stringify(FileJson)
         }
         // console.log(q_id in distinct);
-        console.log(FileJson);
-        console.log(el);
+        // console.log(FileJson);
+        // console.log(el);
+        
     }
+    $(window).ready(()=>{
+        
+        var h = 0;
+        var min =0;
+        var sec = 1;
+        window.setInterval(function set(){
+            if( sec == 59){
+                min = min+1;
+                sec = 0;
+            }
+            if (min == 59){
+                h = h+1;
+                min = 0
+            }
+            timer = `Time : ${h}:${min}:${sec}`
+            $("#countdown").text(timer)
+            sec = sec+1
+            
+        },1000)
+        
+        // timout
+        var t = "{{quiz.timestamp_str}}".split(":")
+        var time = ((Number(t[0])*60+Number(t[1]))+Number(t[2]))*60000 // yahi pehle kar leta yaar🤔 koi nhi ab yadd aa gya na
+        window.setTimeout(function saveForm() {
+            alert("Time Out")
+            timer = `Time : ${00}:${00}:${00}`
+            $("#countdown").text(timer)
+            document.getElementById("ExamForm").submit()
+        }, time);
+        
 
-    function SubmitQuiz()
-    {
-        var strconfirm = confirm("Are you sure you want to submit the quiz ?");
-        if (strconfirm == true)
-        {
-            return true;
-        }
-        // else (strconfirm == true)
-        // {
-        //     return true;
-        // }
-    }
+    })
+    // dragdrop dont touch
+// Make the DIV element draggable:
+dragElement(document.getElementById("mydiv"));
 
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
 
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
 
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+// end
 
 </script>
 {% endblock script %}

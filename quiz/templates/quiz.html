@@ -6,8 +6,8 @@
     <div class="container alert alert-success">
         
         {% for quiz in quiz_list %} 
-        <a href="{% url "quizDetail" quiz.slug %}">
-            <h4 class="alert-heading">Paper Name : {{quiz}} <span style="float: right;">{{quiz.timestamp}}</span></h24> 
+        <a href='{% url "instruction" %}?quiz={{quiz.slug}}'>
+            <h4 class="alert-heading">Paper Name : {{quiz}} <span style="float: right;" id="timer">{{quiz.timestamp_str}}</span></h24> 
                 <hr style="height:4px;border:none;color:#333;background-color:#333;" /> 
                 <!-- <h4>question: {{question.label}}</h4> -->
         </a>
@@ -28,3 +28,9 @@
 
 </div>
 {% endblock content %}
+{% block script %}
+<script>
+
+</script>
+{% endblock script %}
+

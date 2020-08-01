@@ -1,0 +1,29 @@
+{% extends "all.html" %}
+{% block content %}
+<div class="" style="margin-top: 7%;"></div>
+<div class="container">
+    <h2>EXAM INSTRUCTIONS</h2>
+    <h5>Steps For Accessing Your Exam Online:</h5>
+    <p>Close all programs, including email</p>
+    <p>Click on the Click here to open the exam link provided in the email from The College.</p>
+    <p>Click "Log In For Your Exam Here" at the bottom of the screen.</p>
+    <p>Have your Proctor enter the Username and Password provided in the email from The College and click enter.</p>
+    <p>To begin the exam, click on the link to the appropriate exam listed under Online Assessments.</p>
+    <p><h5>During the exam: </h5></p>
+    <p>The student may not use his or her textbook, course notes, or receive help from a proctor or any other outside source.</p>
+    <p>Students must complete the 50-question multiple-choice exam within the 75-minute time frame allotted for the exam. </p>
+    <p>Students must not stop the session and then return to it. This is especially important in the online environment where the system will "time-out" and not allow the student or you to reenter the exam site.    </p>
+
+    <p><h2>What to do if your online exam is interrupted </h2></p>
+    <p>If your online exam is interrupted, click the “Back” button on your web browser to see if you can return to the exam. If not, follow the instructions below to resume taking the exam. Note: Answers are saved by the system in 10-minute intervals. If you have to log back in to complete your exam, your prior answers will be remain from the last system-save.    </p>
+    <p>Reconnect to the Internet and log back into Blackboard.    </p>
+    <p>Follow your original instructions to access the exam login page.</p>
+    <p>Ask your proctor to re-enter the Username and Password, then select the checkbox "Show list of unfinished exams, only select to re-enter an exam already in progress." This will enable you to resume taking the exam, close to the point before the interruption occurred.    </p>
+    <p>Have your Proctor enter the Username and Password provided in the email from The College and click enter.    </p>
+    <p><h2>Support</h2></p>
+    <p>If you have any questions, please contact the organizetion. </p>
+
+    <a href="{% url 'quizDetail' slug %}" class="btn btn-primary my-5 btn-lg" style="text-align: center;">start quiz</a>
+
+</div>
+{% endblock content %}

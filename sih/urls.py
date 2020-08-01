@@ -17,11 +17,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+from job import views as job_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
     path('account/',include('account.urls')),
     path('job/',include('job.urls')),
     path('quiz/',include('quiz.urls')),
+    path("searchJSON/",job_views.searchJSON)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

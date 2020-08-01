@@ -105,7 +105,11 @@ def  show_result(request,slug):
             "quiz_taker" : obj,
             "is_pass" : is_pass
         })
-
+def instruction(request):
+    slug = request.GET.get("quiz",None)
+    if slug:
+        return render(request,"instruction.html",{"slug":slug})
+    return HttpResponse("Invalid Exam Selection <b>Go Back</b>!! ")
 # class SubmitQuizAPI(generics.GenericAPIView):
 # 	serializer_class = QuizResultSerializer
 # 	permission_classes = [

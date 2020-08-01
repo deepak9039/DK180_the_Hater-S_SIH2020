@@ -15,15 +15,20 @@ class Quiz(models.Model):
 	image = models.ImageField()
 	slug = models.SlugField(blank=True)
 	roll_out = models.BooleanField(default=False)
-	timestamp = models.DateTimeField(auto_now_add=True)
-
+	timestamp = models.TimeField()
+	timestamp_str = models.CharField(max_length = 10,null=True,blank=True)
 	class Meta:
 		ordering = ['timestamp',]
 		verbose_name_plural = "Quizzes"
-
+		
 	def __str__(self):
 		return self.name
 
+	def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+		self.timestamp_str = self.timestamp
+		quiz = super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
+		return quiz
+		
 
 class Question(models.Model):
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
