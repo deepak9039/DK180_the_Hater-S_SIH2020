@@ -10,8 +10,19 @@ def get_image_name(instance, filename):
     slug = slugify(title)
     return "profileImages/%s-%s-%s" % (slug, datetime.now(), filename)
 
+def get_resume_name(instance, filename):
+    title = instance.user.username
+    slug = slugify(title)
+    if filename.endswith(".pdf"):
+        filename = f"{slug}.pdf"
+    elif filename.endswith(".doc") or filename.endswith(".docx") :
+        filename = f"{slug}.docx"
+
+    return "resumes/%s" % (filename)
+
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    resume = models.FileField(upload_to=get_resume_name,verbose_name="resume",blank=True,null=True)
     phoneNo = models.CharField(max_length=15,verbose_name="Phone Number")
     intrest = models.CharField(max_length=20)
     skill = models.TextField(verbose_name="Add Skills")

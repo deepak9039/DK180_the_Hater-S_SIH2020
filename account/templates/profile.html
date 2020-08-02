@@ -12,14 +12,16 @@
       <div class="row">
         <div class="col-md-3">
           <div class="card card-body h-100" style="text-align: center;">
+            {% if user.profile.profile_pic %}
             <img class="profile-image" src="{{ user.profile.profile_pic.url}}" width="128" height="128" style="margin-left: 40px; border-radius: 50%;">
+            {% endif %}
             <hr>
             <h4 class="my-2 "><b>Hi I'm {{ user.first_name }} {{ user.last_name}}</b></h4>
-            <p> i love programing</p>            
+                        
             {% if request.user == user %}
             <a class="btn btn-primary" href="{% url 'modify_profile' %}" role="button">Update Profile</a>
             {% endif %}
-          </div>
+          </div>  
         </div>
         <div class="col-md-3">
           <div class="card card-body h-100" style="text-align: center;">
@@ -27,80 +29,28 @@
             <hr>
             <p>Phone NO. <br>{{user.profile.phoneNo}}</p>
             <hr>
-            <p>Certificate's <br>{{user.profile.certificate}}</p>
+            <!-- {% if not user.company %}
+            {% endif %} refresh kr s -->
+            {% if user.profile.resume %}
+            <p>resume<br><a href="{{ user.profile.resume.url}}">resume</a></p>
+            {% endif %} 
           </div>
         </div>
         <div class="col-md-6">
           <div class="card card-body h-100">
-            <h4>  Intrest </h4> <hr>
-            <p>{{user.profile.intrest}}
-            </p>
-            <h4>Skill's </h4> <hr>
-            <p>{{user.profile.skill}}
-            </p>            
+            <h4>  Intrest </h4> 
+            <p>{{user.profile.intrest}}</p>
+            <hr>
+            <h4>Skill's </h4> 
+            <p class="skills_match">{{user.profile.skill}}</p>
+            <hr>
+            <h4>Certificate's</h4>
+            <p>{{user.profile.certificate}}</p>            
           </div>
         </div>
       </div>
     <br>   
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-body h-100">
-            <h4>  My First Job as a developer </h4> <hr>
-            <p>
-              Williams was born and raised in suburban Pittsburgh and Detroit and currently resides in suburban Pittsburgh. 
-              She holds her high school records for the 100, 200m, long jump and 4x100 meters relay.[4]
-               She ran for The Wings of Moon Track Club founded by Coach Rubin Carter based in Moon Township, PA, a suburb near Pittsburgh.
-                She was a star with the new club and qualified for the National Junior Olympics. She attended the University of Miami, 
-                where she competed on the track team and graduated in 2004.[4] She was inducted into the Iron Arrow Honor Society, 
-                the university's highest honor.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card card-body h-100">
-            <h4>  My Experience as a Developer </h4> <hr>
-            <p>
-              Williams was born and raised in suburban Pittsburgh and Detroit and currently resides in suburban Pittsburgh. 
-              She holds her high school records for the 100, 200m, long jump and 4x100 meters relay.[4]
-               She ran for The Wings of Moon Track Club founded by Coach Rubin Carter based in Moon Township, PA, a suburb near Pittsburgh.
-                She was a star with the new club and qualified for the National Junior Olympics. She attended the University of Miami, 
-                where she competed on the track team and graduated in 2004.[4] She was inducted into the Iron Arrow Honor Society, 
-                the university's highest honor.
-            </p>
-          </div>
-        </div>
-      </div>
-    <br>  
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card card-body h-100">
-            <h4>  What I Know </h4> <hr>
-            <p>
-              Williams was born and raised in suburban Pittsburgh and Detroit and currently resides in suburban Pittsburgh. 
-              She holds her high school records for the 100, 200m, long jump and 4x100 meters relay.[4]
-               She ran for The Wings of Moon Track Club founded by Coach Rubin Carter based in Moon Township, PA, a suburb near Pittsburgh.
-                She was a star with the new club and qualified for the National Junior Olympics. She attended the University of Miami, 
-                where she competed on the track team and graduated in 2004.[4] She was inducted into the Iron Arrow Honor Society, 
-                the university's highest honor.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="card card-body h-100">
-            <h4>What Your Sort Term Goals </h4> <hr>
-            <p>
-              Williams was born and raised in suburban Pittsburgh and Detroit and currently resides in suburban Pittsburgh. 
-              She holds her high school records for the 100, 200m, long jump and 4x100 meters relay.[4]
-               She ran for The Wings of Moon Track Club founded by Coach Rubin Carter based in Moon Township, PA, a suburb near Pittsburgh.
-                She was a star with the new club and qualified for the National Junior Olympics. She attended the University of Miami, 
-                where she competed on the track team and graduated in 2004.[4] She was inducted into the Iron Arrow Honor Society, 
-                the university's highest honor.
-            </p>
-          </div>
-        </div>
-      </div>
-    <br>     
-</div>
+  
 
 </section>
 {% endblock content %}

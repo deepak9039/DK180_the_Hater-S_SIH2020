@@ -66,9 +66,7 @@
             FileJson[q_id] = ans_id;   //Done✌✌
             el.value = JSON.stringify(FileJson)
         }
-        // console.log(q_id in distinct);
-        // console.log(FileJson);
-        // console.log(el);
+    
         
     }
     $(window).ready(()=>{
@@ -93,7 +91,7 @@
         
         // timout
         var t = "{{quiz.timestamp_str}}".split(":")
-        var time = ((Number(t[0])*60+Number(t[1]))+Number(t[2]))*60000 // yahi pehle kar leta yaar🤔 koi nhi ab yadd aa gya na
+        var time = ((Number(t[0])*60+Number(t[1]))+Number(t[2]))*60000 
         window.setTimeout(function saveForm() {
             alert("Time Out")
             timer = `Time : ${00}:${00}:${00}`

@@ -70,7 +70,7 @@ def delete_job(request,pk):
 
 def apply_job(request,pk):
     if not request.user.is_authenticated:
-        return HttpResponse("You are not Autherized Go Back Login First!!<br/> <h1>Accss is Denied</h1>")
+        return HttpResponse("<h1>You are not Autherized Go Back Login First!!</h1><br/> <h1>Accss is Denied</h1>")
         
     user = request.user
     if not is_company(user):
@@ -124,7 +124,7 @@ def apply_job(request,pk):
                 ) 
             return redirect("applied_job")
     else:
-        return HttpResponse("You are not Autherized <br/> <h1>Accss is Denied</h1>")
+        return HttpResponse("<h1>You are not Autherized<h1> <br/> <h1>Accss is Denied</h1>")
     return render(request,"job_view.html")
 
 def applied_job(request):

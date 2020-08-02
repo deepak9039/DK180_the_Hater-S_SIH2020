@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from quiz.models import Answer, Question, Quiz, QuizTaker, UsersAnswer
 from django.views import generic
 # # from quiz.serializers import MyQuizListSerializer, QuizDetailSerializer, QuizListSerializer, QuizResultSerializer, UsersAnswerSerializer
+from account.views import is_company
 
 
 class MyQuizList(generic.ListView):
@@ -15,18 +16,22 @@ class MyQuizList(generic.ListView):
     queryset = Quiz.objects.all()
     context_object_name = 'quiz_list'   
     template_name = "quiz.html" # kya hoga 
-    # kro
-# 	def get_queryset(self, *args, **kwargs):
-# 		queryset = Quiz.objects.filter(quiztaker__user=self.request.user)
-# 		query = self.request.GET.get("q")
-
-# 		if query:
-# 			queryset = queryset.filter(
-# 				Q(name__icontains=query) |
-# 				Q(description__icontains=query)
-# 			).distinct()
-
-# 		return queryset
+    
+    def get_queryset(self, *args, **kwargs):
+        queryset = Quiz.objects.filter(quiztaker__user=self.request.user)
+        user = self.request.user
+        if is_company(user):
+            return HttpResponse("Invalid User !!")
+        else:
+            query = user.profile.skill
+            intrest = user.profile.intrest
+            queryset = queryset.filter(
+				Q(name__icontains=query) |
+				Q(description__icontains=query) |
+				Q(name__icontains=intrest) |
+				Q(description__icontains=intrest) 
+			).distinct()
+            return queryset
 class QuizDetail(generic.DetailView):
     model = Quiz
     template_name = "quiz_detail.html"
@@ -86,7 +91,7 @@ def saveUserAnswer(request):
             return redirect("result",quiztaker.quiz.slug)
 
         else:
-            return HttpResponse("please select atleast one")
+            return render(request,"result.html")
 
     else:
         return HttpResponse("Plese select Options")

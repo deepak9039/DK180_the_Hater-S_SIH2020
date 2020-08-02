@@ -28,7 +28,7 @@
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
             
       <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="position: absolute;" > -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top  " >
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top " >
         <div class="container">
         <a class="navbar-brand" href="/"><img src="{% static 'images/SIH2020-logo.png' %}" width="100px" height="60px"  alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,18 +91,20 @@
             {% endif %}
           </ul>
           <!-- search        -->
-          <form class="form-inline col-7 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
-            <input class="form-control mr-sm-2 col-9" onkeyup="preventSearch();" id="SearchData" name="search" type="search?redirect={{request.path}}" placeholder="Search">
+          <form class="form-inline col-md-7  p-0 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
+            <input class="form-control mr-sm-2 position-relative  col-md-9" onkeyup="preventSearch();" id="SearchData" name="search" type="search?redirect={{request.path}}" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             <!-- <div class="form-group mt-1">
               <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" cols="44"></textarea>
             </div> -->
-          </form>
-          <div class="col-5 position-absolute d-flex justify-content-center" style="margin-top:225px; margin-left: 165px;" id="searchSuggestion">
-            <div class="col-md-8 overflow-auto" id="searchquary">
-
+            <div class="position-absolute col-md-9" style="margin-top: 100px;"  id="searchSuggestion">
+                <div class="" id="searchquary">
+                <!-- <a href="#" class="card p-2 text-info text-decoration-none px-1 shadow ">
+                  <p class="m-0 d-flex">Not Found </p>
+                </a>  -->
+              </div>
             </div>
-          </div>
+          </form>
 
 
           <!-- notification icon -->
@@ -122,7 +124,7 @@
           {% if request.user.is_authenticated %}
 
               <div class="dropdown mr-1">
-                <button type="button" class="btn text-light dropdown-toggle active" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                <button type="button" class="btn p-0 text-light dropdown-toggle active" id="dropdownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
                   {{request.user.username}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
@@ -195,10 +197,10 @@
           </div>
         </div>
       </div>
-      {% block content %}
-      {% endblock content %}
-    {% comment %} footer {% endcomment %}
-
+      <div style="width: 100%;overflow: hidden;">
+        {% block content %}
+        {% endblock content %}
+      </div>
 <!-- Footer -->
 <footer class="page-footer font-small blue pt-4" style="background-color: #1d2973;">
   <hr>
@@ -315,7 +317,7 @@
       if(data1.length !== 0 ){
         data1.map(item=>{
           $("#searchquary").append(`
-          <a href="/job/${item.pk}" class="card p-3 text-info text-decoration-none px-3 shadow ">
+          <a href="/job/${item.pk}" class="card p-2 text-info text-decoration-none px-3 shadow ">
             <p class="m-0 d-flex">${item.fields.job_title}</p>
             </a>
             `)
@@ -324,9 +326,9 @@
         } else {
           $("#searchquary").empty()
           $("#searchquary").append(`
-        <a href="#" class="card p-3 text-info text-decoration-none px-3 shadow ">
-          <p class="m-0 d-flex">Not Found </p>
-        </a>
+          <a href="#" class="card p-2 text-info text-decoration-none px-1 shadow ">
+            <p class="m-0 d-flex">Not Found </p>
+          </a> 
         `)
       }
     })

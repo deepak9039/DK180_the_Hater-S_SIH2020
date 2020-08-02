@@ -25,42 +25,22 @@
     <div class="row mt-4">
         <div class="col">
             <label for="">First Name</label>
-            <input type="text" class="form-control" placeholder="First name" value="{{request.user.first_name}}" name="firstname">
+            <input type="text" class="form-control" placeholder="First name" value="{{request.user.first_name}}" name="firstname" required>
         </div>
         <div class="col">
             <label for="">Last Name</label>
-            <input type="text" class="form-control" placeholder="Last name" value="{{request.user.last_name}}" name="lastname">
+            <input type="text" class="form-control" placeholder="Last name" value="{{request.user.last_name}}" name="lastname" required>
         </div>
     </div>
 
     <div class="form=group my-4">
         <label for="disabledTextInput">Email</label>
-        <input type="text" id="disabledTextInput" class="form-control" value="{{ request.user.email}}" name = "mail">
+        <input type="text" id="disabledTextInput" class="form-control" value="{{ request.user.email}}" name = "mail" required>
     </div>
 
 
-
-    {{form.as_p}}
-
-{% comment %} 
-        <label for="disabledTextInput">Intereste</label>
-        <input type="textarea" id="disabledTextInput" class="form-control" placeholder="">
-
-
-
-        <label for="exampleFormControlTextarea1">Add Skills</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-
-
-
-        <label for="exampleFormControlTextarea1">Work Applied For</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-
-
-
-        <label for="exampleFormControlTextarea1">Certificates</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1"  placeholder="Required example textarea" rows="3" ></textarea> {% endcomment %}
-    <button class="btn btn-primary mt-5" type= "submit">Submit Form</button>
+     {{form.as_p}} 
+       <button class="btn btn-primary mt-3" type= "submit">Submit Form</button>
 </form>
 
 </div>

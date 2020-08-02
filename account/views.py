@@ -11,6 +11,8 @@ import requests
 import json
 import urllib.request
 
+
+
 # from .models import Company
 
 def is_user_form_filled(user):
@@ -35,6 +37,7 @@ def signup(request):
         name = request.POST["name"]
         username = request.POST["username"]
         email = request.POST["email"]
+        # resume = request.POST["resume"]
         password = request.POST["password"]
 
         # Recaptcha stuff
@@ -72,7 +75,7 @@ def signup(request):
     return render(request,'signup.html')
 
 def login(request):
-    if request.method == "POST":
+    if request.method == "POST":    
         username = request.POST["loginusername"]
         password = request.POST["loginpassword"]
         user = auth.authenticate(username=username,password=password)
