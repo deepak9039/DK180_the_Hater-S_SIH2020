@@ -28,10 +28,8 @@ class MyQuizList(generic.ListView):
             queryset = queryset.filter(
 				Q(name__icontains=query) |
 				Q(description__icontains=query) |
-                Q(label__icontains=query) |   
-                Q(name__icontains=intrest) |
 				Q(name__icontains=intrest) |
-				Q(label__icontains=intrest) 
+				Q(description__icontains=intrest) 
 			).distinct()
             return queryset
 class QuizDetail(generic.DetailView):
