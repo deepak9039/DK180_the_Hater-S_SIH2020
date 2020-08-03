@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/cityhover.css' %}">
 {% endblock style %}
 {% block content %}
+
 <section style="padding-top: 80px;width: 100%;">
 <div id="carouselExampleCaptions" class="carousel slide mt-0" data-ride="carousel" >
         <ol class="carousel-indicators">
@@ -53,7 +54,7 @@
         {% for city in cities %}
           <div class="overlay-auto " style="width: 100%; height: 30%;">
             <div class="hovereffect mt-4">
-              <img class="img-responsive" src="{{city.image.url}}" width="400" alt="">
+              <img class="img-responsive w-100 h-100" src="{{city.image.url}}"  alt="">
               <div class="overlay">
                  <h2>{{city.name}}</h2>
                  <a class="info" href="{% url 'feed' %}?city={{city.name}}">link here</a>
@@ -121,7 +122,7 @@
           {% endfor %}
           {% else %}
             {% if user.profile %}
-            <p>No Jobs Availbile According To Your Skiils</p>
+            <h5 class="container">Sorry No Jobs Available According To Your Skiils And Intrest</h5>
             {% else %}
             <p class="container">You have not Added any Job <a href="{% url "addjob" %}">Click Here </a> to add job. </p>
             {% endif %}  
@@ -133,6 +134,10 @@
 
 
 </section>
+
+
+
+
 {% endblock content %}
 
 {% block script %}

@@ -41,10 +41,10 @@
         <label for="formGroupExampleInput">Job Location Place</label>
       <input class="form-control form-control-lg" type="text" placeholder="" id="id_job_location_place" name="job_location_place" value="{{job.job_location_place}}" required>
       </div>
-      <!-- <div class="col">
-        <label for="formGroupExampleInput">Duration</label>
-      <input class="form-control form-control-lg" type="text" placeholder="">
-      </div> -->
+      <div class="col">
+        <label for="formGroupExampleInput">Mobile No.</label>
+      <input class="form-control form-control-lg" type="text" placeholder="" name="mobile_number" value="{{job.mobile_number}}" id="id_mobile_number" required>
+      </div>
     </div>
 
     <div class="row mt-4">
@@ -153,8 +153,14 @@
         <label for="formGroupExampleInput">Join Date</label>
       <input class="form-control form-control-lg" type="date" placeholder="year-month-date" name="join_date" value="{{job.join_date}}" id="id_join_date" required>
       </div>
-    </div>.
+    </div>
     
+    <div class="row mt-4">
+      <div class="col">
+        <label for="formGroupExampleInput">Number Of Openings</label>
+      <input class="form-control form-control-lg" type="number" placeholder="" name="number_of_openings" value="{{job.number_of_openings}}" id="id_number_of_openings" required>
+      </div> 
+    </div>
 
 
     <div class="form-group mt-5">

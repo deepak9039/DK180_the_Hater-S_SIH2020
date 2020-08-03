@@ -15,7 +15,7 @@ class MyQuizList(generic.ListView):
     model = Quiz
     queryset = Quiz.objects.all()
     context_object_name = 'quiz_list'   
-    template_name = "quiz.html" # kya hoga 
+    template_name = "quiz.html"  
     
     def get_queryset(self, *args, **kwargs):
         queryset = Quiz.objects.filter(quiztaker__user=self.request.user)
@@ -28,8 +28,10 @@ class MyQuizList(generic.ListView):
             queryset = queryset.filter(
 				Q(name__icontains=query) |
 				Q(description__icontains=query) |
+                Q(label__icontains=query) |   
+                Q(name__icontains=intrest) |
 				Q(name__icontains=intrest) |
-				Q(description__icontains=intrest) 
+				Q(label__icontains=intrest) 
 			).distinct()
             return queryset
 class QuizDetail(generic.DetailView):

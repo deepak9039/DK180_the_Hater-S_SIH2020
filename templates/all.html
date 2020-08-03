@@ -94,24 +94,16 @@
           <form class="form-inline col-md-7  p-0 my-lg-2" method="POST" action="{% url 'search' %}">{% csrf_token %}
             <input class="form-control mr-sm-2 position-relative  col-md-9" onkeyup="preventSearch();" id="SearchData" name="search" type="search?redirect={{request.path}}" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <!-- <div class="form-group mt-1">
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" cols="44"></textarea>
-            </div> -->
-            <div class="position-absolute col-md-9" style="margin-top: 100px;"  id="searchSuggestion">
-                <div class="" id="searchquary">
-                <!-- <a href="#" class="card p-2 text-info text-decoration-none px-1 shadow ">
-                  <p class="m-0 d-flex">Not Found </p>
-                </a>  -->
-              </div>
-            </div>
           </form>
-
-
+          <!-- <div class="col-md-4 position-absolute" style="margin-left: 170px; margin-top: 110px;" id="searchSuggestion">
+            <div class="" id="searchquary"></div>
+          </div> -->
+    
           <!-- notification icon -->
           <!--For modern browsers-->
-          <div>
+          <div class="mr-4">
           <a href="{% url 'notification' %}">
-          <i class="material-icons text-light mr-sm-0">
+          <i class="material-icons text-light mr-sm-0 ">
             add_alert
             </i>
             <div class="mx-auto">
@@ -317,7 +309,7 @@
       if(data1.length !== 0 ){
         data1.map(item=>{
           $("#searchquary").append(`
-          <a href="/job/${item.pk}" class="card p-2 text-info text-decoration-none px-3 shadow ">
+          <a href="/job/${item.pk}" class="card position-relative p-2   ">
             <p class="m-0 d-flex">${item.fields.job_title}</p>
             </a>
             `)
@@ -326,7 +318,7 @@
         } else {
           $("#searchquary").empty()
           $("#searchquary").append(`
-          <a href="#" class="card p-2 text-info text-decoration-none px-1 shadow ">
+          <a href="#" class="card p-2 ">
             <p class="m-0 d-flex">Not Found </p>
           </a> 
         `)

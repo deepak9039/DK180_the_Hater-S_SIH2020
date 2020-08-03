@@ -30,6 +30,11 @@ class Job(models.Model):
     salary = models.FloatField(verbose_name='Salary',default=0)
     applicants = models.ManyToManyField(Profile,blank=True,null= True)
     createation_date = models.DateTimeField(auto_now=True)
+    mobile_number = models.CharField(max_length=12,default=0, verbose_name='Mobile No.')
+    # number_of_openings = models.CharField(max_length=1000, verbose_name='Number Of Openings')
+    number_of_openings = models.IntegerField(max_length=1000,default=0,verbose_name='Number Of Openings')
+
+
 
     def __str__(self):
         return self.job_title

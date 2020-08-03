@@ -6,7 +6,7 @@ class JobFrom(forms.ModelForm):
     class Meta:
         model = Job
         fields  = ["job_title", "description", "job_image", "join_date", "location", "duration", "post_date", "last_date_apply_by",
-        "skills_required", "who_can_apply", "other_requirments", "salary","about_company","job_location_place",]
+        "skills_required", "who_can_apply", "other_requirments", "salary","about_company","job_location_place","mobile_number","number_of_openings"]
         # widgets = {
         #     'name' : forms.TextInput(attrs={"class": "form-control"}),
         #     'description':  forms.Textarea(attrs={'class': 'form-control form-control-lg' }),
